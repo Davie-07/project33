@@ -215,6 +215,11 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
+// Catch-all route for SPA
+app.get('*', (req, res) => {
+  res.redirect('/');
+});
+
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
