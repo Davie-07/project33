@@ -210,14 +210,22 @@ app.get('/api/members', async (req, res) => {
   }
 });
 
-// Health check endpoint for Render
+// Remove the problematic catch-all route and replace with these routes
+// Health check for Render
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
-// Catch-all route for SPA
-app.get('*', (req, res) => {
-  res.redirect('/');
+// API routes should be above this line
+// Handle undefined routes
+app.use((req, res) => {
+  res.status(404).json({ message: 'Route not found' });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Something went wrong!' });
 });
 
 // Start server
