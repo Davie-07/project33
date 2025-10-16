@@ -1,14 +1,18 @@
-export default defineConfig({
+const path = require('path');
+const react = require('@vitejs/plugin-react');
+
+module.exports = {
   plugins: [react()],
-  root: path.resolve(__dirname), // now root is 'client'
+  root: path.resolve(__dirname),
   build: {
     outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
-      input: path.resolve(__dirname, 'index.html') // points to client/index.html
+      input: path.resolve(__dirname, 'index.html')
     }
   }
-})
+};
+
 
 
 
